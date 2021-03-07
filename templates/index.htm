@@ -92,8 +92,11 @@
 
 		<section id="section">
 			<h2></h2>
+			<p></p>
+
 
 		</section>
+		<section id="section"><a id="n_url" href="#" target="_blank">go</a></section>
 	</main>
 
 	<script type="text/javascript">
@@ -109,6 +112,8 @@
 				},
 				success: function (data) {
 					$('h2').html('www.localhost:8000/' + data);
+					$('a').html('www.localhost:8000/' + data);
+					$('#n_url').attr('href', '/' + data)
 					console.log(data);
 
 					// $('h2').html('www.surls.ga/' + data);

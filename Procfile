@@ -1,1 +1,0 @@
-web gunicorn mydjangoprojects.wsgi:application --log-file -
