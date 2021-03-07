@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku
-import dj_database_url
+# import django_heroku
+# import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,12 +78,27 @@ WSGI_APPLICATION = 'mydjangoprojects.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': 
-    {
-        # dj_database_url.config()
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+     'default': {
+
+        'ENGINE': 'django.db.backends.postgresql',
+
+        'NAME': 'd9n0a28rhj2krn',
+
+        'USER': 'mnrrqxlcykpmct',
+
+        'PASSWORD': '5cd53325459c26d438631a2a3535296411daaf0bdb9719543734bc21491deef6',
+
+        'HOST': 'ec2-54-198-252-9.compute-1.amazonaws.com',
+
+        'PORT': '5cd53325459c26d438631a2a3535296411daaf0bdb9719543734bc21491deef6',
+
     }
+    # 'default': 
+    # {
+    #     # dj_database_url.config()
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
 
 
@@ -131,4 +146,4 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
