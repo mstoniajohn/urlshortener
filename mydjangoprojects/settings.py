@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'urlshortener',
-    'crispy_forms_tags',
+   
     'account'
 ]
 
