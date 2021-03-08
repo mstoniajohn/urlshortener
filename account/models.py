@@ -16,14 +16,14 @@ from .forms import RegisterForm
 #         return my_user
 
 
-class MyUser(AbstractBaseUser):
-    email = models.EmailField(max_length=60, unique=True)
-    username = models.CharField(max_length=100, blank=True)
-    join_on = models.DateField(auto_now_add=True)
+# class MyUser(AbstractBaseUser):
+#     email = models.EmailField(max_length=60, unique=True)
+#     username = models.CharField(max_length=100, blank=True)
+#     join_on = models.DateField(auto_now_add=True)
 
-    object = RegisterForm()
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+#     object = RegisterForm()
+#     USERNAME_FIELD = 'email'
+#     REQUIRED_FIELDS = ['username']
 
 # class BlogPost(models.Model):
 #     member = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
