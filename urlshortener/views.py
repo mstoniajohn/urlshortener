@@ -7,7 +7,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return render(request, 'index.htm')
+    return render(request, 'index.html')
 
 
 def create(request):

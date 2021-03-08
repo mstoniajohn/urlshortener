@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'urlshortener',
     'crispy_forms',
-    'account.apps.AccountConfig'
+    'account'
 ]
 
 MIDDLEWARE = [
