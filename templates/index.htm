@@ -1,113 +1,100 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Url Shortener</title>
 	{% load static %}
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"
 		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+	<title>Url Shortener</title>
 	<style>
-		*,
-		*::before,
-		*::after {
-			box-sizing: border-box;
-		}
-
-		body,
-		section {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			padding: 1rem;
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: inherit;
 		}
 
 		body {
-			min-height: 100vh;
-			font-family: 'Lato', sans-serif;
-			line-height: 1.5;
-			color: #111;
-		}
-
-		main {
-			max-width: 720px;
-			width: 100%;
-			border: 2.5px solid #330867;
-			border-radius: 2.5px;
-			box-shadow: 0 10px 20px rgba(17, 17, 17, 0.125),
-				0 5px 5px rgba(17, 17, 17, 0.25);
-			background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
-		}
-
-		h1 {
-			padding: 1rem;
-			color: white;
-		}
-
-		input,
-		button {
-			font-family: inherit;
-			line-height: inherit;
-			color: inherit;
-			border: 0;
-			padding: 1rem;
-		}
-
-		input {
-			box-sizing: border-box;
-			width: 100%;
-			font-size: 16px !important;
-		}
-
-		.buttons {
+			background: #c9ffbf;
+			/* fallback for old browsers */
+			background: -webkit-linear-gradient(to right,
+					#c9ffbf,
+					#ffafbd);
+			/* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to right, #c9ffbf, #ffafbd);
+			height: 100vh;
 			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			padding: 2rem;
 		}
 
-		button {
-			cursor: pointer;
-			flex: 1;
-			background-color: transparent;
-			color: white;
+		html {
 
-			&:hover {
-				background-color: rgba(255, 255, 255, 0.5);
-			}
+			box-sizing: border-box;
 		}
 
-		section {
-			min-height: 120px;
-			text-align: center;
-			background-color: white;
+		form button {
+			margin: .5rem auto .7rem auto;
+
+
+		}
+
+		nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 2rem;
 		}
 	</style>
 </head>
 
-<body>
+<body class="container text-white" style="">
 	<main>
-		<h1>URL Shortener</h1>
-		<form id="post-form">
-			{% csrf_token %}
-			<input type="text" name="link" id="link" placeholder="Enter URL here" />
-			<div class="buttons">
-				<button type="submit" id="shorten">Shorten</button>
+		<div>
+			<h1 class="text-center">URL Shortener</h1>
+			<p>Paste in your long url below and click "shorten" to shorten it.</p>
+			<form class="mx-" id="post-form">
+				{% csrf_token %}
+				<div class="form-group">
+					<input class="form-control" type="text" name="link" id="link" placeholder="Enter URL here" />
+				</div>
+				<div class="form-group text-center">
+					<button class="btn btn-light border-info  text-info" type="submit" id="shorten">
+						Shorten
+					</button>
+				</div>
+
+
+
+
+
+			</form>
+			<div class="card" style="width: 100%">
+				<div class="card-body">
+					<h4 class="card-title">
+						<a href="" id="h2link" target="_blank"></a>
+					</h4>
+
+					<p class="card-text text-dark">
+						Copy or go directly to link after Shorten your url.
+					</p>
+					<a id="copy_url" class="btn btn-sm btn-outline-info" href="">Copy</a>
+
+					<a class="btn btn-sm btn-outline-info" id="n_url" href="#" target="_blank">Go to link</a>
+				</div>
 			</div>
-		</form>
-
-		<section id="section">
-			<h2></h2>
-			<p></p>
-
-
-		</section>
-		<section id="section"><a id="n_url" href="#" target="_blank">go</a></section>
+		</div>
 	</main>
+	<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
 
 	<script type="text/javascript">
 		$(document).on('submit', '#post-form', function (e) {
 			e.preventDefault();
-
 			$.ajax({
 				type: 'POST',
 				url: '/create',
@@ -116,10 +103,20 @@
 					csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 				},
 				success: function (data) {
-					$('h2').html('www.urlsnippet/' + data);
-					$('a').html('www.urlsnippet/' + data);
-					$('#n_url').attr('href', '/' + data)
+					$('#h2link').html('www.urlsnippet/' + data);
+					$('#h2link').attr('href', '/' + data);
+					$('#n_url').attr('href', '/' + data);
 					console.log(data);
+
+					$('#copy_url').attr('href', '/' + data);
+					var copybtn = document.getElementById('copy_url');
+					copybtn.addEventListener('click', async (e) => {
+						e.preventDefault();
+						var content = document.getElementById('h2link').textContent;
+						await navigator.clipboard.writeText(content);
+						var copied = await navigator.clipboard.readText();
+						console.log(copied);
+					});
 
 					// $('h2').html('www.surls.ga/' + data);
 				},

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{%block title %} New {% endblock %}
+
+{% block body %}
+<h2> {{ all_users|length }}</h2><a type="button" href="{% url 'home' %}">Home</a>
+<form action="" method='post'>
+    {% csrf_token %}
+    <input type="email" name="email" id="">
+    <input type="text" name="name" id="">
+    <input type="password" name="password" id="">
+    <input type="text" name="blog_title">
+    <button type="submit">Sign Up</button>
+</form>
+
+{% endblock %}
