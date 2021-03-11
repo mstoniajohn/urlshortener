@@ -1,128 +1,148 @@
 <html lang="en">
+	<head>
+		{% load static %}
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script
+			src="https://code.jquery.com/jquery-3.1.1.min.js"
+			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+			crossorigin="anonymous"
+		></script>
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous"
+		/>
+		<title>Url Shortener</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: inherit;
+			}
 
-<head>
-	{% load static %}
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"
-		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-	<title>Url Shortener</title>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: inherit;
-		}
+			body {
+				background: #649173; /* fallback for old browsers */
+				background: -webkit-linear-gradient(
+					to right,
+					#dbd5a4,
+					#649173
+				); /* Chrome 10-25, Safari 5.1-6 */
+				background: linear-gradient(
+					to right,
+					#dbd5a4,
+					#649173
+				); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-		body {
-			background: #c9ffbf;
-			/* fallback for old browsers */
-			background: -webkit-linear-gradient(to right,
-					#c9ffbf,
-					#ffafbd);
-			/* Chrome 10-25, Safari 5.1-6 */
-			background: linear-gradient(to right, #c9ffbf, #ffafbd);
-			height: 100vh;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 100%;
-			padding: 2rem;
-		}
+				height: 100vh;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				padding: 2rem;
+			}
 
-		html {
+			html {
+				box-sizing: border-box;
+			}
 
-			box-sizing: border-box;
-		}
+			form button {
+				margin: 0.5rem auto 0.7rem auto;
+			}
 
-		form button {
-			margin: .5rem auto .7rem auto;
+			nav {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0 2rem;
+			}
+		</style>
+	</head>
 
+	<body class="container text-white" style="">
+		<main>
+			<div>
+				<h1 class="text-center">URL Shortener</h1>
+				<p>Paste in your long url below and click "shorten" to shorten it.</p>
+				<form class="mx-" id="post-form">
+					{% csrf_token %}
+					<div class="form-group">
+						<input
+							class="form-control"
+							type="text"
+							name="link"
+							id="link"
+							placeholder="Enter URL here"
+						/>
+					</div>
+					<div class="form-group text-center">
+						<button
+							class="btn btn-light border-info text-info"
+							type="submit"
+							id="shorten"
+						>
+							Shorten
+						</button>
+					</div>
+				</form>
+				<div class="card" style="width: 100%">
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="" id="h2link" target="_blank"></a>
+						</h4>
 
-		}
+						<p class="card-text text-dark">
+							Copy or go directly to link after Shorten your url.
+						</p>
+						<a id="copy_url" class="btn btn-sm btn-outline-info" href=""
+							>Copy</a
+						>
 
-		nav {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: 0 2rem;
-		}
-	</style>
-</head>
-
-<body class="container text-white" style="">
-	<main>
-		<div>
-			<h1 class="text-center">URL Shortener</h1>
-			<p>Paste in your long url below and click "shorten" to shorten it.</p>
-			<form class="mx-" id="post-form">
-				{% csrf_token %}
-				<div class="form-group">
-					<input class="form-control" type="text" name="link" id="link" placeholder="Enter URL here" />
-				</div>
-				<div class="form-group text-center">
-					<button class="btn btn-light border-info  text-info" type="submit" id="shorten">
-						Shorten
-					</button>
-				</div>
-
-
-
-
-
-			</form>
-			<div class="card" style="width: 100%">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="" id="h2link" target="_blank"></a>
-					</h4>
-
-					<p class="card-text text-dark">
-						Copy or go directly to link after Shorten your url.
-					</p>
-					<a id="copy_url" class="btn btn-sm btn-outline-info" href="">Copy</a>
-
-					<a class="btn btn-sm btn-outline-info" id="n_url" href="#" target="_blank">Go to link</a>
+						<a
+							class="btn btn-sm btn-outline-info"
+							id="n_url"
+							href="#"
+							target="_blank"
+							>Go to link</a
+						>
+					</div>
 				</div>
 			</div>
-		</div>
-	</main>
-	<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+		</main>
+		<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
 
-	<script type="text/javascript">
-		$(document).on('submit', '#post-form', function (e) {
-			e.preventDefault();
-			$.ajax({
-				type: 'POST',
-				url: '/create',
-				data: {
-					link: $('#link').val(),
-					csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-				},
-				success: function (data) {
-					$('#h2link').html('www.urlsnippet/' + data);
-					$('#h2link').attr('href', '/' + data);
-					$('#n_url').attr('href', '/' + data);
-					console.log(data);
+		<script type="text/javascript">
+			$(document).on('submit', '#post-form', function (e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '/create',
+					data: {
+						link: $('#link').val(),
+						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+					},
+					success: function (data) {
+						$('#h2link').html('www.urlsnippet/' + data);
+						$('#h2link').attr('href', '/' + data);
+						$('#n_url').attr('href', '/' + data);
+						console.log(data);
 
-					$('#copy_url').attr('href', '/' + data);
-					var copybtn = document.getElementById('copy_url');
-					copybtn.addEventListener('click', async (e) => {
-						e.preventDefault();
-						var content = document.getElementById('h2link').textContent;
-						await navigator.clipboard.writeText(content);
-						var copied = await navigator.clipboard.readText();
-						console.log(copied);
-					});
+						$('#copy_url').attr('href', '/' + data);
+						var copybtn = document.getElementById('copy_url');
+						copybtn.addEventListener('click', async (e) => {
+							e.preventDefault();
+							var content = document.getElementById('h2link').textContent;
+							await navigator.clipboard.writeText(content);
+							var copied = await navigator.clipboard.readText();
+							console.log(copied);
+						});
 
-					// $('h2').html('www.surls.ga/' + data);
-				},
+						// $('h2').html('www.surls.ga/' + data);
+					},
+				});
 			});
-		});
-	</script>
-</body>
-
+		</script>
+	</body>
 </html>
